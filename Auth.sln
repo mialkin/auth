@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple", "src\Simple\Simple.csproj", "{CCF0A002-F0F4-4577-B9DA-08107393B922}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Simple", "src\Auth.Simple\Auth.Simple.csproj", "{CCF0A002-F0F4-4577-B9DA-08107393B922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

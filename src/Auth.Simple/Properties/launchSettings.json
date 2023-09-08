@@ -1,9 +1,8 @@
 ﻿{
   "profiles": {
-    "Simple": {
+    "Auth.Simple": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:4020",
       "environmentVariables": {
