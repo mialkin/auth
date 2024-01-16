@@ -17,7 +17,6 @@ var signingCredentials = new SigningCredentials(
     key: symmetricKey,
     algorithm: SecurityAlgorithms.HmacSha512Signature);
 
-var tokenHandler = new JwtSecurityTokenHandler();
 
 // var token = new JwtSecurityToken();
 // This results in following JWT token: eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.e30.
@@ -27,6 +26,8 @@ var token = new JwtSecurityToken(
     claims: claims,
     expires: DateTime.UtcNow.AddDays(1),
     signingCredentials: signingCredentials);
+
+var tokenHandler = new JwtSecurityTokenHandler();
 
 string jwt = tokenHandler.WriteToken(token);
 
@@ -52,5 +53,24 @@ Console.WriteLine(jwt);
      "exp": 1705508469
    }
  */
- 
- // Signature: 7zX5BkhaNIk8UtcvOsya6gBZdUXOXOlNP4OZF4nYPSG2flKfHlJ2IHSrz4WyC6rFQGJgUfS_m3w3xDoetuSzWA
+
+// Signature: 7zX5BkhaNIk8UtcvOsya6gBZdUXOXOlNP4OZF4nYPSG2flKfHlJ2IHSrz4WyC6rFQGJgUfS_m3w3xDoetuSzWA
+
+// Throws exception if token is not valid:
+var result = tokenHandler.ValidateToken(
+    token: jwt,
+    validationParameters: new TokenValidationParameters
+    {
+        ValidateLifetime = true,
+        ValidateAudience = false, // Because there is no audience in the generated token
+        ValidateIssuer = false, // Because there is no issuer in the generated token
+        // ValidIssuer = "Sample",
+        // ValidAudience = "Sample",
+        IssuerSigningKey = symmetricKey,
+        ClockSkew = TimeSpan.Zero // Tokens expire exactly at token expiration time, instead of 5 minutes later
+    },
+    validatedToken: out SecurityToken validatedToken);
+
+var jwtToken = (JwtSecurityToken)validatedToken;
+
+Console.ReadLine();
