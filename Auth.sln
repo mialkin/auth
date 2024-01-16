@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Simple", "src\Auth.Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt", "src\Auth.Jwt\Auth.Jwt.csproj", "{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt.RoleBased", "src\Auth.Jwt.RoleBased\Auth.Jwt.RoleBased.csproj", "{774D3F26-25C9-46A5-8F5B-9B083DF5B182}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
