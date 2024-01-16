@@ -3,7 +3,6 @@
     "Auth.Simple": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchUrl": "swagger",
       "applicationUrl": "http://localhost:4020",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
