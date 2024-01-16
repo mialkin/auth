@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Simple", "src\Auth.Simple\Auth.Simple.csproj", "{CCF0A002-F0F4-4577-B9DA-08107393B922}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt", "src\Auth.Jwt\Auth.Jwt.csproj", "{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{CCF0A002-F0F4-4577-B9DA-08107393B922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCF0A002-F0F4-4577-B9DA-08107393B922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCF0A002-F0F4-4577-B9DA-08107393B922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A152CBE7-E6F4-4A85-808E-D03DE6D7A6F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
