@@ -15,6 +15,8 @@ builder.Host.UseSerilog((context, configuration) =>
 var services = builder.Services;
 
 services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(options => { options.DescribeAllParametersInCamelCase(); });
 services.AddRouting(options => options.LowercaseUrls = true);
 
 var settings = builder.Configuration.GetRequiredSection(nameof(JwtTokenSettings)).Get<JwtTokenSettings>();
@@ -50,6 +52,13 @@ application.UseAuthentication();
 application.UseAuthorization();
 
 application.UseStatusCodePages(); // TODO Remove?
+
+application.UseSwagger();
+application.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.RoutePrefix = string.Empty;
+});
 
 application.MapControllers();
 
