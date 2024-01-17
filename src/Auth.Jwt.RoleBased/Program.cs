@@ -15,9 +15,8 @@ builder.Host.UseSerilog((context, configuration) =>
 var services = builder.Services;
 
 services.AddControllers();
-services.AddEndpointsApiExplorer();
-services.AddSwaggerGen(options => { options.DescribeAllParametersInCamelCase(); });
 services.AddRouting(options => options.LowercaseUrls = true);
+services.AddSwaggerGen(options => { options.DescribeAllParametersInCamelCase(); });
 
 var settings = builder.Configuration.GetRequiredSection(nameof(JwtTokenSettings)).Get<JwtTokenSettings>();
 if (settings is null)
@@ -46,6 +45,7 @@ services.AddOptions<JwtTokenSettings>().BindConfiguration(nameof(JwtTokenSetting
 
 var application = builder.Build();
 
+application.MapControllers();
 application.UseRouting();
 
 application.UseAuthentication();
@@ -57,7 +57,5 @@ application.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = string.Empty;
 });
-
-application.MapControllers();
 
 application.Run();
