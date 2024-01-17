@@ -17,13 +17,9 @@ var services = builder.Services;
 services.AddControllers();
 services.AddRouting(options => options.LowercaseUrls = true);
 
-var settings = new JwtTokenSettings
-{
-    Issuer = "https://mysite.com",
-    Audience = "https://mysite.com",
-    SigningKey = "tLoezSkU6WtUlyb5kXS+vrx5Q51+QoF1l6BuP3Lw2t6K2+VhaO8NqbLkh1/QbYbLoh0DvOEGbrMQsxmdGPrMOSf5w6bP8FFEfNsc"
-
-};
+var settings = builder.Configuration.GetRequiredSection(nameof(JwtTokenSettings)).Get<JwtTokenSettings>();
+if (settings is null)
+    throw new InvalidOperationException();
 
 services.AddAuthentication(auth =>
     {
@@ -43,6 +39,8 @@ services.AddAuthentication(auth =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.SigningKey))
         };
     });
+
+services.AddOptions<JwtTokenSettings>().BindConfiguration(nameof(JwtTokenSettings));
 
 var application = builder.Build();
 
