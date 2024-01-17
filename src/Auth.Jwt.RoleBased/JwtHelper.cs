@@ -17,8 +17,8 @@ public static class JwtHelper
     {
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub,username),
-            // this guarantees the token is unique
+            new Claim(JwtRegisteredClaimNames.Sub, username),
+            // This guarantees the token is unique
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
@@ -30,14 +30,14 @@ public static class JwtHelper
         }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var signingCredentials = new SigningCredentials(key, algorithm: SecurityAlgorithms.HmacSha256);
 
         return new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
             expires: DateTime.UtcNow.Add(expiration),
             claims: claims,
-            signingCredentials: creds
+            signingCredentials: signingCredentials
         );
     }
 }

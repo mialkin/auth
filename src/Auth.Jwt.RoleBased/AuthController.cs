@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     {
         _jwtTokenSettings = jwtTokenOptions.Value;
     }
-    
+
     [AllowAnonymous]
     [HttpPost("authenticate")]
     public IActionResult Authenticate(LoginUserRequest request)
@@ -25,7 +25,7 @@ public class AuthController : ControllerBase
         // Fetch user from database by its username and password
         var claims = new List<Claim>();
         // Feel claims specific to user fetched from database 
-        
+
         var token = JwtHelper.GetJwtToken(
             request.Username,
             _jwtTokenSettings.SigningKey,
