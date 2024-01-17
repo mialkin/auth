@@ -51,8 +51,6 @@ application.UseRouting();
 application.UseAuthentication();
 application.UseAuthorization();
 
-application.UseStatusCodePages(); // TODO Remove?
-
 application.UseSwagger();
 application.UseSwaggerUI(options =>
 {
