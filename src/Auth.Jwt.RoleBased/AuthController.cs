@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 namespace Auth.Jwt.RoleBased;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
@@ -21,18 +22,16 @@ public class AuthController : ControllerBase
     [HttpPost("authenticate")]
     public IActionResult Authenticate(LoginUserRequest request)
     {
-        var claim = new Claim(type: ClaimTypes.Role, value: "admin");
-        var claimIdentity = new ClaimsIdentity(claims: new[] { claim }, authenticationType: "login");
-        var claimsPrincipal = new ClaimsPrincipal(identities: new[] { claimIdentity });
-
+        // Fetch user from database by its username and password
         var claims = new List<Claim>();
+        // Feel claims specific to user fetched from database 
         
         var token = JwtHelper.GetJwtToken(
             request.Username,
             _jwtTokenSettings.SigningKey,
             _jwtTokenSettings.Issuer,
             _jwtTokenSettings.Audience,
-            TimeSpan.FromMinutes(_jwtTokenSettings.TokenTimeoutMinutes),
+            expiration: TimeSpan.FromMinutes(_jwtTokenSettings.TokenTimeoutMinutes),
             claims.ToArray());
 
         var result = new
