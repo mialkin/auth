@@ -1,0 +1,21 @@
+@baseUrl=http://localhost:5020
+@jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2bGFkaW1pciIsImp0aSI6Ijg4ZjE2NTU5LWE0M2QtNGQ3Mi04MTQwLTQyMjk5OThmNDEwNyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJVc2VyIiwiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE3MDU1MDYyNjMsImlzcyI6Imh0dHBzOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbXlzaXRlLmNvbSJ9.NAxXzMt-BBpjB6u8FKamncxGENzTtOhquYC0GBC5hEY
+
+### Save user
+
+POST {{baseUrl}}/users/save
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "username": "vladimir",
+  "title": "doctor"
+}
+
+### Delete user
+
+POST {{baseUrl}}/users/delete
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+"5AD9D0A5-19C6-4DF0-BD43-8A5C0E5E0C49"

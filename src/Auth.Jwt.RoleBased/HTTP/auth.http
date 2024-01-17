@@ -1,0 +1,11 @@
+@baseUrl=http://localhost:5020
+
+### Authenticate
+
+POST {{baseUrl}}/auth/authenticate
+Content-Type: application/json
+
+{
+  "username": "vladimir",
+  "password": "secret123$"
+}

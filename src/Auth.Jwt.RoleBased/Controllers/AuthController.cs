@@ -1,13 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Auth.Jwt.RoleBased.Controllers.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Auth.Jwt.RoleBased;
+namespace Auth.Jwt.RoleBased.Controllers;
 
 [ApiController]
-[Authorize]
+[Authorize] // Just require ANY authentication
 [Route("[controller]")]
 public class AuthController : ControllerBase
 {
@@ -20,14 +21,16 @@ public class AuthController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("authenticate")]
-    public IActionResult Authenticate(LoginUserRequest request)
+    public IActionResult Authenticate(AuthenticateUserRequest userRequest)
     {
-        // Fetch user from database by its username and password
+        // Fetch user with roles from database
         var claims = new List<Claim>();
-        // Feel claims specific to user fetched from database 
+        // Feel claims specific to user roles fetched from database
+        claims.Add(new Claim(ClaimTypes.Role, "User"));
+        claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
 
         var token = JwtHelper.GetJwtToken(
-            request.Username,
+            userRequest.Username,
             _jwtTokenSettings.SigningKey,
             _jwtTokenSettings.Issuer,
             _jwtTokenSettings.Audience,
