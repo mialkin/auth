@@ -10,7 +10,7 @@ app.MapGet("/username", (HttpContext context) =>
     var key = parts?[0];
     var value = parts?[1];
 
-    return value;
+    return value ?? "N/A";
 });
 
 app.MapGet("/login", (HttpContext context) =>
