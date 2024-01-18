@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Auth.MinimalApi.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 
@@ -9,8 +10,10 @@ builder.Services.AddScoped<AuthService>();
 
 var application = builder.Build();
 
-application.MapGet("/username", (HttpContext context, IDataProtectionProvider provider) =>
+application.Use((context, next) =>
 {
+    var provider = context.RequestServices.GetRequiredService<IDataProtectionProvider>();
+
     var protector = provider.CreateProtector("auth-cookie");
 
     var authCookie = context.Request.Headers.Cookie.FirstOrDefault(x => x != null && x.StartsWith("auth="));
@@ -19,15 +22,26 @@ application.MapGet("/username", (HttpContext context, IDataProtectionProvider pr
     if (protectedPayload != null)
     {
         var payload = protector.Unprotect(protectedPayload);
-        var parts = payload?.Split(":");
+        var parts = payload.Split(":");
 
-        var key = parts?[0];
-        var value = parts?[1];
+        var key = parts[0];
+        var value = parts[1];
 
-        return value ?? string.Empty;
+        var claims = new List<Claim>
+        {
+            new(key, value)
+        };
+
+        var identity = new ClaimsIdentity(claims);
+        context.User = new ClaimsPrincipal(identity);
     }
 
-    return "N/A";
+    return next();
+});
+
+application.MapGet("/username", (HttpContext context) =>
+{
+    return context.User.FindFirst("usr")?.Value ?? "N/A";
 });
 
 application.MapGet("/login", (AuthService authService) =>
