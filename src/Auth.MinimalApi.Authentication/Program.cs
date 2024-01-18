@@ -1,15 +1,18 @@
+using Auth.MinimalApi.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDataProtection(); // Adds IDataProtectionProvider in IoC container
+builder.Services.AddDataProtection(); // Adds IDataProtectionProvider to IoC container
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<AuthService>();
 
 var application = builder.Build();
 
 application.MapGet("/username", (HttpContext context, IDataProtectionProvider provider) =>
 {
     var protector = provider.CreateProtector("auth-cookie");
-    
+
     var authCookie = context.Request.Headers.Cookie.FirstOrDefault(x => x != null && x.StartsWith("auth="));
     var protectedPayload = authCookie?.Split("=").Last();
 
@@ -27,11 +30,10 @@ application.MapGet("/username", (HttpContext context, IDataProtectionProvider pr
     return "N/A";
 });
 
-application.MapGet("/login", (HttpContext context, IDataProtectionProvider provider) =>
+application.MapGet("/login", (AuthService authService) =>
 {
-    var protector = provider.CreateProtector("auth-cookie");
-    
-    context.Response.Headers["set-cookie"] = $"auth={protector.Protect("usr:aleksei")}";
+    authService.SignIn();
+
     return "ok";
 });
 
