@@ -12,13 +12,12 @@ public static class JwtHelper
         string signingKey,
         string issuer,
         string audience,
-        TimeSpan expiration,
+        TimeSpan expirationWindow,
         Claim[]? additionalClaims)
     {
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, username),
-            // This guarantees the token is unique
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
@@ -35,7 +34,7 @@ public static class JwtHelper
         return new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
-            expires: DateTime.UtcNow.Add(expiration),
+            expires: DateTime.UtcNow.Add(expirationWindow),
             claims: claims,
             signingCredentials: signingCredentials
         );

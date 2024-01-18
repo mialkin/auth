@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
             _jwtTokenSettings.SigningKey,
             _jwtTokenSettings.Issuer,
             _jwtTokenSettings.Audience,
-            expiration: TimeSpan.FromMinutes(_jwtTokenSettings.TokenTimeoutMinutes),
+            expirationWindow: TimeSpan.FromMinutes(_jwtTokenSettings.TokenTimeoutMinutes),
             claims.ToArray());
 
         var result = new
