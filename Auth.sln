@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt", "src\Auth.Jwt\Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Jwt.RoleBased", "src\Auth.Jwt.RoleBased\Auth.Jwt.RoleBased.csproj", "{774D3F26-25C9-46A5-8F5B-9B083DF5B182}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RawCoding", "RawCoding", "{D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.Authentication", "src\Auth.MinimalApi.Authentication\Auth.MinimalApi.Authentication.csproj", "{D49314F6-0039-413B-8BA7-A08900CE954E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,12 @@ Global
 		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{774D3F26-25C9-46A5-8F5B-9B083DF5B182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D49314F6-0039-413B-8BA7-A08900CE954E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D49314F6-0039-413B-8BA7-A08900CE954E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D49314F6-0039-413B-8BA7-A08900CE954E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D49314F6-0039-413B-8BA7-A08900CE954E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D49314F6-0039-413B-8BA7-A08900CE954E} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 	EndGlobalSection
 EndGlobal
