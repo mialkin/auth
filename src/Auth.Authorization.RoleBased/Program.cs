@@ -1,6 +1,18 @@
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+var services = builder.Services;
 
-app.Run();
+services.AddAuthentication()
+    .AddCookie("cookie");
+
+services.AddAuthorization();
+services.AddControllers();
+
+var application = builder.Build();
+
+application.UseAuthentication();
+application.UseAuthorization();
+
+application.MapControllers();
+
+application.Run();
