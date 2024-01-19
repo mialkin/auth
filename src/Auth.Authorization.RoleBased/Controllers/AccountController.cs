@@ -13,9 +13,12 @@ public class AccountController : ControllerBase
                 new ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
+                        new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()),
+                        new Claim("my_role_claim_extravaganza", "admin")
                     },
-                    authenticationType: "cookie"
+                    authenticationType: "cookie",
+                    nameType: null,
+                    roleType: "my_role_claim_extravaganza"
                 )
             ),
             authenticationScheme: "cookie"
