@@ -10,47 +10,71 @@ builder.Services.AddAuthentication(authScheme)
     .AddCookie(authScheme)
     .AddCookie(authScheme2);
 
-var app = builder.Build();
+var application = builder.Build();
 
-app.UseAuthentication();
+application.UseAuthentication();
 
-app.MapGet("/unsecure", (HttpContext ctx) => { return ctx.User.FindFirst("usr")?.Value ?? "empty"; });
-
-app.MapGet("/sweden", (HttpContext context) =>
+application.Use((context, next) =>
 {
+    if (context.Request.Path.StartsWithSegments("/login"))
+    {
+        return next();
+    }
+    
     if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
     {
         context.Response.StatusCode = 401;
-        return "";
+        return Task.CompletedTask;
     }
-
+    
     if (!context.User.HasClaim("passport_type", "eur"))
     {
         context.Response.StatusCode = 403;
-        return "";
+        return Task.CompletedTask;
     }
-
-    return "allowed";
+    
+    return next();
 });
 
-app.MapGet("/norway", (HttpContext context) =>
+application.MapGet("/unsecure", (HttpContext ctx) => { return ctx.User.FindFirst("usr")?.Value ?? "empty"; });
+
+application.MapGet("/sweden", (HttpContext context) =>
 {
-    if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
-    {
-        context.Response.StatusCode = 401;
-        return "";
-    }
-
-    if (!context.User.HasClaim("passport_type", "NOR"))
-    {
-        context.Response.StatusCode = 403;
-        return "";
-    }
+    // if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
+    // {
+    //     context.Response.StatusCode = 401;
+    //     return "";
+    // }
+    //
+    // if (!context.User.HasClaim("passport_type", "eur"))
+    // {
+    //     context.Response.StatusCode = 403;
+    //     return "";
+    // }
 
     return "allowed";
 });
 
-app.MapGet("/denmark", (HttpContext context) =>
+application.MapGet("/norway", (HttpContext context) =>
+{
+    // if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
+    // {
+    //     context.Response.StatusCode = 401;
+    //     return "";
+    // }
+    //
+    // if (!context.User.HasClaim("passport_type", "NOR"))
+    // {
+    //     context.Response.StatusCode = 403;
+    //     return "";
+    // }
+
+    return "allowed";
+});
+
+//[AuthScheme(authScheme2)]
+// [AuthClaim("passport_type", "eur")]
+application.MapGet("/denmark", (HttpContext context) =>
 {
     if (context.User.Identities.All(x => x.AuthenticationType != authScheme2))
     {
@@ -67,7 +91,7 @@ app.MapGet("/denmark", (HttpContext context) =>
     return "allowed";
 });
 
-app.MapGet("/login", async (HttpContext context) =>
+application.MapGet("/login", async (HttpContext context) =>
 {
     var claims = new List<Claim>();
     claims.Add(new Claim("usr", "aleksei"));
@@ -78,4 +102,4 @@ app.MapGet("/login", async (HttpContext context) =>
     await context.SignInAsync(authScheme, user);
 });
 
-app.Run();
+application.Run();
