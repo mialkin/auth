@@ -10,31 +10,42 @@ builder.Services.AddAuthentication(authScheme)
     .AddCookie(authScheme)
     .AddCookie(authScheme2);
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("eu passport", policyBuilder =>
+    {
+        policyBuilder.RequireAuthenticatedUser()
+            .AddAuthenticationSchemes(authScheme)
+            .RequireClaim("passport_type", "eur");
+    });
+});
+
 var application = builder.Build();
 
 application.UseAuthentication();
+application.UseAuthorization();
 
-application.Use((context, next) =>
-{
-    if (context.Request.Path.StartsWithSegments("/login"))
-    {
-        return next();
-    }
-    
-    if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
-    {
-        context.Response.StatusCode = 401;
-        return Task.CompletedTask;
-    }
-    
-    if (!context.User.HasClaim("passport_type", "eur"))
-    {
-        context.Response.StatusCode = 403;
-        return Task.CompletedTask;
-    }
-    
-    return next();
-});
+// application.Use((context, next) =>
+// {
+//     if (context.Request.Path.StartsWithSegments("/login"))
+//     {
+//         return next();
+//     }
+//     
+//     if (context.User.Identities.All(x => x.AuthenticationType != authScheme))
+//     {
+//         context.Response.StatusCode = 401;
+//         return Task.CompletedTask;
+//     }
+//     
+//     if (!context.User.HasClaim("passport_type", "eur"))
+//     {
+//         context.Response.StatusCode = 403;
+//         return Task.CompletedTask;
+//     }
+//     
+//     return next();
+// });
 
 application.MapGet("/unsecure", (HttpContext ctx) => { return ctx.User.FindFirst("usr")?.Value ?? "empty"; });
 
@@ -53,7 +64,8 @@ application.MapGet("/sweden", (HttpContext context) =>
     // }
 
     return "allowed";
-});
+})
+.RequireAuthorization("eu passport");
 
 application.MapGet("/norway", (HttpContext context) =>
 {
@@ -100,6 +112,7 @@ application.MapGet("/login", async (HttpContext context) =>
     var user = new ClaimsPrincipal(identity);
 
     await context.SignInAsync(authScheme, user);
-});
+})
+.AllowAnonymous(); // This is not necessary
 
 application.Run();
