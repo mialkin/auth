@@ -12,7 +12,7 @@ var services = builder.Services;
 services.AddAuthentication()
     .AddScheme<CookieAuthenticationOptions, VisitorAuthHandler>("visitor", options => { })  // This is an authentication schema
     .AddCookie("local") // This is another authentication schema
-    .AddCookie("oauth") // This is also another authentication schema
+    .AddCookie("oauth") // This is also another authentication schema. It could have been called "oauth-cookie"
     .AddOAuth("external-oauth", options =>  // This is yet another authentication schema
     {
         options.SignInScheme = "oauth";
