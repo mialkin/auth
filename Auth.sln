@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Authorization.RoleBase
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.AuthenticationSchemas", "src\Auth.MinimalApi.AuthenticationSchemas\Auth.MinimalApi.AuthenticationSchemas.csproj", "{5CBF2BBC-424B-43FD-8670-435E882A4912}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.IdentityManagement", "src\Auth.MinimalApi.IdentityManagement\Auth.MinimalApi.IdentityManagement.csproj", "{40549370-2570-4391-AB55-486D0B0465FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,11 +52,16 @@ Global
 		{5CBF2BBC-424B-43FD-8670-435E882A4912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CBF2BBC-424B-43FD-8670-435E882A4912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CBF2BBC-424B-43FD-8670-435E882A4912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40549370-2570-4391-AB55-486D0B0465FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40549370-2570-4391-AB55-486D0B0465FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40549370-2570-4391-AB55-486D0B0465FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40549370-2570-4391-AB55-486D0B0465FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D49314F6-0039-413B-8BA7-A08900CE954E} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 		{05EF50E3-89ED-4791-8A81-C66C40F2AD3D} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 		{C864E7AC-4AA7-4138-9C27-1939F25CB393} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 		{5CBF2BBC-424B-43FD-8670-435E882A4912} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
+		{40549370-2570-4391-AB55-486D0B0465FF} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 	EndGlobalSection
 EndGlobal
