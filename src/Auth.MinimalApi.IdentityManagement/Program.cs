@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 
+services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddDefaultTokenProviders();
+
 services.AddDataProtection();
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -32,6 +35,13 @@ application.UseAuthentication();
 
 application.MapGet("/", () => "Hello world!");
 application.MapGet("/protected", () => "Something super secret").RequireAuthorization("manager");
+
+application.MapGet("/test", (
+    UserManager<IdentityUser> userManager,
+    SignInManager<IdentityUser> signInManager) =>
+{
+    return "Ok";
+});
 
 application.MapGet("/register", async (
     string username,
