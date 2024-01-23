@@ -1,11 +1,14 @@
 using Auth.MinimalApi.IdentityManagement;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
+
+services.AddDataProtection();
 
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -86,6 +89,49 @@ application.MapGet("/promote", async (
     await database.PutAsync(user);
 
     return Results.Ok("Promoted");
+});
+
+application.MapGet("/start-password-reset", async (
+    string username,
+    Database database,
+    IDataProtectionProvider provider
+) =>
+{
+    var protector = provider.CreateProtector(purpose: "PasswordReset");
+
+    var user = await database.GetUserAsync(username);
+    if (user is null)
+        return Results.NotFound();
+
+    var protectedText = protector.Protect(user.Username);
+
+    return Results.Ok(protectedText);
+});
+
+application.MapGet("/end-password-reset", async (
+    string username,
+    string password,
+    string hash,
+    Database database,
+    IPasswordHasher<User> hasher,
+    IDataProtectionProvider provider
+) =>
+{
+    var protector = provider.CreateProtector(purpose: "PasswordReset");
+    var hashUsername = protector.Unprotect(hash);
+    if (hashUsername != username)
+    {
+        return Results.BadRequest("Bad hash");
+    }
+
+    var user = await database.GetUserAsync(username);
+    if (user is null)
+        return Results.NotFound();
+
+    user.PasswordHash = hasher.HashPassword(user, password);
+    await database.PutAsync(user);
+
+    return Results.Ok("Password reset");
 });
 
 application.Run();
