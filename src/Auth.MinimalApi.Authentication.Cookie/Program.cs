@@ -15,8 +15,8 @@ services.AddAuthentication("default")
         // options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         // options.Cookie.SameSite = SameSiteMode.Lax;
 
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(10);
-        options.SlidingExpiration = true;
+        // options.ExpireTimeSpan = TimeSpan.FromSeconds(10);
+        // options.SlidingExpiration = true;
     });
 services.AddAuthorization();
 
@@ -41,6 +41,18 @@ application.MapPost("/login", async (HttpContext httpContext) =>
                 authenticationType: "default"
             )
         ),
+        new AuthenticationProperties
+        {
+            IsPersistent = true
+        }
+    );
+
+    return "Ok";
+});
+
+application.MapGet("/signout", async (HttpContext httpContext) =>
+{
+    await httpContext.SignOutAsync("default",
         new AuthenticationProperties
         {
             IsPersistent = true
