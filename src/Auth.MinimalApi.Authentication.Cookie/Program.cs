@@ -9,6 +9,8 @@ services.AddAuthentication()
     .AddCookie("default", options =>
     {
         options.Cookie.Name = "mycookie";
+        // options.Cookie.Domain = "mydomain";
+        options.Cookie.Path = "/test";
     });
 
 services.AddControllers();
