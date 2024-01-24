@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SingleSignOn", "SingleSignO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.CookieSingleSignOn.App", "src\Auth.MinimalApi.CookieSingleSignOn.App\Auth.MinimalApi.CookieSingleSignOn.App.csproj", "{7AA73151-146F-4EBA-BE20-7544B67B29BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.CookieSingleSignOn.Identity", "Auth.MinimalApi.CookieSingleSignOn.Identity\Auth.MinimalApi.CookieSingleSignOn.Identity.csproj", "{6888CE22-F56F-4DF1-9356-EC92C70E9AA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.MinimalApi.CookieSingleSignOn.Identity", "src\Auth.MinimalApi.CookieSingleSignOn.Identity\Auth.MinimalApi.CookieSingleSignOn.Identity.csproj", "{B7535167-45B9-4C0A-88E4-42D2E5B79134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,10 +72,10 @@ Global
 		{7AA73151-146F-4EBA-BE20-7544B67B29BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AA73151-146F-4EBA-BE20-7544B67B29BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AA73151-146F-4EBA-BE20-7544B67B29BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6888CE22-F56F-4DF1-9356-EC92C70E9AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6888CE22-F56F-4DF1-9356-EC92C70E9AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6888CE22-F56F-4DF1-9356-EC92C70E9AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6888CE22-F56F-4DF1-9356-EC92C70E9AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7535167-45B9-4C0A-88E4-42D2E5B79134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7535167-45B9-4C0A-88E4-42D2E5B79134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7535167-45B9-4C0A-88E4-42D2E5B79134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7535167-45B9-4C0A-88E4-42D2E5B79134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D49314F6-0039-413B-8BA7-A08900CE954E} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
@@ -86,6 +86,6 @@ Global
 		{38A2D09D-076C-4CF3-89B9-9F655A25A46E} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 		{C0923A0D-433E-4092-9F8C-C6836A7BD2CE} = {D037F87A-4CA2-4E37-A4F5-3DD854E24F4F}
 		{7AA73151-146F-4EBA-BE20-7544B67B29BE} = {C0923A0D-433E-4092-9F8C-C6836A7BD2CE}
-		{6888CE22-F56F-4DF1-9356-EC92C70E9AA2} = {C0923A0D-433E-4092-9F8C-C6836A7BD2CE}
+		{B7535167-45B9-4C0A-88E4-42D2E5B79134} = {C0923A0D-433E-4092-9F8C-C6836A7BD2CE}
 	EndGlobalSection
 EndGlobal
