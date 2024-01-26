@@ -74,4 +74,19 @@ application.MapGet("/jwt", () =>
     return token;
 });
 
+application.MapGet("/jwk", () =>
+{
+    var publicKey = RSA.Create();
+    publicKey.ImportRSAPublicKey(rsa.ExportRSAPublicKey(), out _);
+    var key = new RsaSecurityKey(publicKey);
+    return JsonWebKeyConverter.ConvertFromRSASecurityKey(key);
+});
+
+
+application.MapGet("/jwk-private", () =>
+{
+    var key = new RsaSecurityKey(rsa);
+    return JsonWebKeyConverter.ConvertFromRSASecurityKey(key);
+});
+
 application.Run();
