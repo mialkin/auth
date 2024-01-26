@@ -55,6 +55,7 @@ application.MapGet("/", (HttpContext context) =>
 
     return claim;
 });
+
 application.MapGet("/jwt", () =>
 {
     var handler = new JsonWebTokenHandler();
