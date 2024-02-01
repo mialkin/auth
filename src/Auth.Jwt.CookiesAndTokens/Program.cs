@@ -48,7 +48,17 @@ services.AddAuthentication()
         x.MapInboundClaims = false;
     });
 
-services.AddAuthorization();
+// This is unfinished project
+
+services.AddAuthorization(x =>
+{
+    x.AddPolicy("the_policy", policyBuilder =>
+    {
+        policyBuilder.RequireAuthenticatedUser()
+            .AddAuthenticationSchemes(IdentityConstants.ApplicationScheme)
+            .RequireClaim("role", "janitor");
+    });
+});
 
 var application = await builder.BuildAndSetup();
 
@@ -64,15 +74,31 @@ application.MapGet("/cookie/sign-in", async (SignInManager<IdentityUser> signInM
     return Results.Ok();
 });
 
+// This is unfinished project
 
-application.MapGet("/jwt/sign-in", () =>
+application.MapGet("/jwt/sign-in", async (
+    KeyManager manager,
+    SignInManager<IdentityUser> signInManager,
+    UserManager<IdentityUser> userManager,
+    IUserClaimsPrincipalFactory<IdentityUser> claimsPrincipalFactory) =>
 {
+    var user = await userManager.FindByNameAsync("test@test.com");
+    if (user is null)
+        throw new InvalidOperationException();
+
+    var result = await signInManager.CheckPasswordSignInAsync(user, "password", false);
+
+    var principal = await claimsPrincipalFactory.CreateAsync(user);
+    var identity = principal.Identities.First();
+    identity.AddClaim(new Claim("amr", "pwd"));
+    identity.AddClaim(new Claim("method", "jwt"));
+
     var handler = new JsonWebTokenHandler();
-    var key = new RsaSecurityKey(keyManager.RsaKey);
+    var key = new RsaSecurityKey(manager.RsaKey);
     var token = handler.CreateToken(new SecurityTokenDescriptor
     {
         Issuer = "http://localhost:5210",
-        Subject = null, // ???
+        Subject = identity,
         SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256)
     });
 
