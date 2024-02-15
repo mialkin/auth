@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +63,23 @@ application.MapGet("/signout", async (HttpContext httpContext) =>
 
     return "Ok";
 });
+
+application.MapGet("/decrypt", (HttpContext context) =>
+{
+    // ONE - grab the CookieAuthenticationOptions instance
+    var options = context.RequestServices
+        .GetRequiredService<IOptionsMonitor<CookieAuthenticationOptions>>()
+        .Get("default");
+
+    // TWO - Get the encrypted cookie value
+    var cookie = options.CookieManager.GetRequestCookie(context, options.Cookie.Name!);
+
+    // THREE - decrypt it
+    var authenticationTicket = options.TicketDataFormat.Unprotect(cookie)!;
+
+    return "Ok";
+}).RequireAuthorization();
+
 
 application.MapDefaultControllerRoute();
 
